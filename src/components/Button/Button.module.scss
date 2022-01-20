@@ -38,3 +38,8 @@
 .button:first-of-type {
   margin-left: 130px;
 }
+
+.button[disabled] {
+  background: $color-disabled;
+  color: lighten($color-disabled, 30%);
+}

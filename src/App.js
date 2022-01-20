@@ -8,9 +8,12 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [timer, setTimer] = useState('null');
 
+  const [active, setActive] = useState(false);
+
   const start = (e) => {
     e.preventDefault();
     console.log('start clicked');
+    setActive(true);
     setTimer(
       setInterval(() => {
         setTime((time) => time + 1);
@@ -22,10 +25,12 @@ const App = () => {
     e.preventDefault();
     console.log('stop clicked');
     if (timer) clearInterval(timer);
+    setActive(false);
   };
 
   const reset = () => {
     setTime(0);
+    setActive(false);
     //setTimer('null');
   };
 
@@ -38,9 +43,15 @@ const App = () => {
   return (
     <Container>
       <Timer value={time} />
-      <Button onClick={start}>start</Button>
-      <Button onClick={stop}>stop</Button>
-      <Button onClick={reset}>reset</Button>
+      <Button onClick={start} isInactive={active}>
+        start
+      </Button>
+      <Button onClick={stop} isInactive={!active}>
+        stop
+      </Button>
+      <Button onClick={reset} isInactive={active}>
+        reset
+      </Button>
     </Container>
   );
 };
